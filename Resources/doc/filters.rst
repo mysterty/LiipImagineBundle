@@ -32,11 +32,18 @@ annotated configuration examples:
                     thumbnail: { size: [32, 32], mode: inset }
 
 
-There is also an option ``allow_upscale`` (default: ``false``). By setting
-``allow_upscale`` to ``true``, an image which is smaller than 32x32px in the
-example above will be expanded to the requested size by interpolation of its
-content. Without this option, a smaller image will be left as it. This means you
-may get images that are smaller than the specified dimensions.
+Note that you can't upscale image with thumbnail filter. This means that if your image is smaller than 32x32, the thumbnail filter won't apply. In this case, you have to chain with the upscale filter like this:
+.. code-block:: yaml
+
+    liip_imagine:
+            my_thumb_upscaled:
+                filters:
+                    # Transforms 10x10 to 32x32
+                    upscale: { min: [32, 32] }
+                    thumbnail: { size: [32, 32], mode: inset }
+
+
+See upscale section for more detail on the upscale filter
 
 The ``relative_resize`` filter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
